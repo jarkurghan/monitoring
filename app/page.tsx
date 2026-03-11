@@ -4,19 +4,21 @@ import { TopProducts } from "@/components/dashboard/top-products";
 import { MetricCards } from "@/components/dashboard/metric-card";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { SalesMap } from "@/components/dashboard/sales-map";
+import { Map } from "@/components/dashboard/map";
 import { Button } from "@/components/ui/button";
 import { getLastActivities } from "@/services";
 import { getActivePerTimes } from "@/services";
 import { getLatestUsers } from "@/services";
 import { getUserStatus } from "@/services";
+import { getMap } from "@/services";
 import { ExternalLink } from "lucide-react";
 import { getTitles } from "@/services";
 import { Bell } from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardPage() {
-    const response = await Promise.all([getActivePerTimes(), getLatestUsers(), getLastActivities(), getUserStatus(), getTitles()]);
-    const [activePerTimes, latestUsers, updatedUsersLast5Days, userStatus, activeUsersAndCities] = response;
+    const response = await Promise.all([getActivePerTimes(), getLatestUsers(), getLastActivities(), getUserStatus(), getTitles(), getMap()]);
+    const [activePerTimes, latestUsers, updatedUsersLast5Days, userStatus, activeUsersAndCities, mapData] = response;
 
     return (
         <div className="min-h-screen bg-background p-4 md:p-6 lg:p-8">
@@ -47,14 +49,16 @@ export default async function DashboardPage() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    <div className="h-full">
-                        <CustomerOrders data={updatedUsersLast5Days} />
-                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
                     <div className="lg:col-span-2 h-full">
                         <SalesMap data={userStatus} />
                     </div>
+                    <div className="h-full lg:col-span-3">
+                        <CustomerOrders data={updatedUsersLast5Days} />
+                    </div>
                 </div>
+
+                <Map data={mapData} />
             </div>
         </div>
     );

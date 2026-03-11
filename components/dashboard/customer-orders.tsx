@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-export type UpdatedUsersLast5Days = { date: string; weekday: string; count: number };
+export type UpdatedUsersLast5Days = { date: string; weekday: string; count: number; date_slice?: string };
 
 interface CustomerOrdersProps {
     data: UpdatedUsersLast5Days[];
@@ -12,6 +12,7 @@ interface CustomerOrdersProps {
 export function CustomerOrders({ data }: CustomerOrdersProps) {
     const startCount = data[0]?.count ?? 0;
     const endCount = data[data.length - 1]?.count ?? 0;
+    data.forEach((item) => (item.date_slice = item.date.slice(0, 5)));
 
     const diff = endCount - startCount;
     const diffSign = diff > 0 ? "+" : diff < 0 ? "-" : "";
@@ -50,7 +51,7 @@ export function CustomerOrders({ data }: CustomerOrdersProps) {
                                     <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <XAxis dataKey="weekday" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#737373" }} />
+                            <XAxis dataKey="date_slice" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#737373" }} />
                             <YAxis hide />
                             <Tooltip
                                 contentStyle={{ backgroundColor: "#1a1a1a", border: "none", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
