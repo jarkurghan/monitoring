@@ -11,7 +11,7 @@ export type LatestUser = {
 
 const getStatusColor = (status: string) => {
     switch (status) {
-        case "Tugallanmagan":
+        case "Boshqa":
             return "bg-amber-100 text-amber-800";
         case "Aktiv":
             return "bg-green-100 text-green-800";

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const getStatusColor = (status: string) => {
     switch (status) {
-        case "Tugallanmagan":
+        case "Boshqa":
             return "#8b5cf6";
         case "Aktiv":
             return "#22c55e";
@@ -77,7 +77,7 @@ export function SalesMap({ data }: SalesMapProps) {
                             <p className="text-xs text-muted-foreground">Foydalanmayapti</p>
                             <p className="text-2xl font-semibold">
                                 {(data.find((item) => item.status === "O'chirilgan")?.count || 0) +
-                                    (data.find((item) => item.status === "Tugallanmagan")?.count || 0)}
+                                    (data.find((item) => item.status === "Boshqa")?.count || 0)}
                             </p>
                         </div>
                     </div>
