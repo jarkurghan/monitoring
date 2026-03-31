@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapData } from "./map";
-import { getMapSelected } from "@/services";
+import { getMapSelected } from "@/services/pray";
 
 interface CustomBarProps {
     x?: number;

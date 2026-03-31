@@ -6,24 +6,30 @@ import { PageHeader } from "@/components/dashboard/page-header";
 import { SalesMap } from "@/components/dashboard/sales-map";
 import { Map } from "@/components/dashboard/map";
 import { Button } from "@/components/ui/button";
-import { getLastActivities } from "@/services";
-import { getActivePerTimes } from "@/services";
-import { getLatestUsers } from "@/services";
-import { getUserStatus } from "@/services";
-import { getMap } from "@/services";
+import { getLastActivities } from "@/services/pray";
+import { getActivePerTimes } from "@/services/pray";
+import { getLatestUsers } from "@/services/pray";
+import { getUserStatus } from "@/services/pray";
+import { getMap } from "@/services/pray";
 import { ExternalLink } from "lucide-react";
-import { getTitles } from "@/services";
+import { getTitles } from "@/services/pray";
 import { Bell } from "lucide-react";
 import Link from "next/link";
+import { Header } from "@/components/dashboard/header";
 
 export default async function DashboardPage() {
     const response = await Promise.all([getActivePerTimes(), getLatestUsers(), getLastActivities(), getUserStatus(), getTitles(), getMap()]);
     const [activePerTimes, latestUsers, updatedUsersLast5Days, userStatus, activeUsersAndCities, mapData] = response;
 
+    const headerMenuItems = [
+        { label: "Bot yangiliklari", href: "https://t.me/meni_botlarim", target: "_blank", icon: <Bell /> },
+        { label: "Botga o'tish", href: "https://t.me/bugungi_namoz_bot", target: "_blank", icon: <ExternalLink /> },
+    ];
+
     return (
         <div className="min-h-screen bg-background p-4 md:p-6 lg:p-8">
             <div className="max-w-[1400px] mx-auto">
-                <PageHeader title="Bot statistikasi" description="Namoz vaqtlari boti foydalanuvchilari bo'yicha statistika">
+                {/* <PageHeader title="Bot statistikasi" description="Namoz vaqtlari boti foydalanuvchilari bo'yicha statistika">
                     <Link href="https://t.me/meni_botlarim" target="_blank">
                         <Button variant="outline" className="flex items-center gap-2 bg-transparent text-sm">
                             <Bell className="w-4 h-4" />
@@ -36,6 +42,9 @@ export default async function DashboardPage() {
                             Botga o'tish
                         </Button>
                     </Link>
+                </PageHeader> */}
+                <PageHeader title="Bot statistikasi" description="Namoz vaqtlari boti foydalanuvchilari bo'yicha statistika">
+                    <Header headerMenuItems={headerMenuItems} />
                 </PageHeader>
 
                 <MetricCards data={activeUsersAndCities} />
