@@ -23,8 +23,8 @@ export function InstaTopGroupsBarChart({ data }: InstaTopGroupsBarChartProps) {
                         <XAxis dataKey="sliced" fontSize={13} />
                         <Tooltip contentStyle={{ fontSize: 14, borderRadius: "8px", backgroundColor: "#e5e5e5", fontWeight: "600" }} />
                         <Legend />
-                        <Bar dataKey="total_count" fontSize={11} fill="#8884d8" background={{ fill: "#eee" }} />
-                        <Bar dataKey="today_count" fontSize={11} fill="#82ca9d" />
+                        <Bar dataKey="total_count" name="guruhlar soni" fontSize={11} fill="#8884d8" background={{ fill: "#eee" }} />
+                        <Bar dataKey="today_count" name="bugungi guruhlar soni" fontSize={11} fill="#82ca9d" />
                     </BarChart>
                 </ResponsiveContainer>
             </CardContent>

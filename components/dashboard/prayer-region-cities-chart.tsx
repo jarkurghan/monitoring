@@ -84,7 +84,7 @@ export function PrayerRegionCitiesChart({ region }: { region: PrayerRegionCount 
                         <XAxis dataKey="name_2" />
                         <YAxis />
                         <Tooltip />
-                        <Bar dataKey="count" shape={<CustomShapeBar />}>
+                        <Bar dataKey="count" name="foydalanuvchilar soni" shape={<CustomShapeBar />}>
                             {data.map((entry) => (
                                 <Cell key={entry.city_id} fill={colorFromName2(entry.name_2)} />
                             ))}

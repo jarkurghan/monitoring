@@ -42,6 +42,7 @@ export function InstaWeeklyUsersGroupsChart({ data }: InstaWeeklyUsersGroupsChar
                             <Line
                                 type="monotone"
                                 dataKey="groups"
+                                name="guruhlar soni"
                                 stroke="#8884d8"
                                 dot={{ r: 4, fill: "#8884d8", stroke: "#8884d8" }}
                                 activeDot={{ r: 8, fill: "#8884d8", stroke: "#8884d8" }}
@@ -50,6 +51,7 @@ export function InstaWeeklyUsersGroupsChart({ data }: InstaWeeklyUsersGroupsChar
                             <Line
                                 type="monotone"
                                 dataKey="users"
+                                name="foydalanuvchilar soni"
                                 stroke="#82ca9d"
                                 connectNulls={true}
                                 dot={{ r: 4, fill: "#82ca9d", stroke: "#82ca9d" }}
