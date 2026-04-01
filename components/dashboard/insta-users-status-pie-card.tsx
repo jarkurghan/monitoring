@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { InstaStatusCount } from "@/services/insta";
 import { Button } from "@/components/ui/button";
 
 const getStatusColor = (status: string) => {
@@ -17,13 +18,7 @@ const getStatusColor = (status: string) => {
     }
 };
 
-export type UserStatus = {
-    status: string;
-    count: number;
-    color?: string;
-};
-
-const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: UserStatus }> }) => {
+const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: InstaStatusCount }> }) => {
     if (active && payload && payload.length) {
         const data = payload[0].payload;
         return (
@@ -36,11 +31,11 @@ const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<
     return null;
 };
 
-interface UsersCountByStatusProps {
-    data: UserStatus[];
+interface InstaUsersStatusPieCardProps {
+    data: InstaStatusCount[];
 }
 
-export function UsersCountByStatus({ data }: UsersCountByStatusProps) {
+export function InstaUsersStatusPieCard({ data }: InstaUsersStatusPieCardProps) {
     data.forEach((item) => (item.color = getStatusColor(item.status)));
 
     return (

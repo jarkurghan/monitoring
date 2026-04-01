@@ -3,13 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-export type UpdatedUsersLast5Days = { date: string; weekday: string; count: number; date_slice?: string };
+export type PrayerActivityTrendPoint = { date: string; weekday: string; count: number; date_slice?: string };
 
-interface CustomerOrdersProps {
-    data: UpdatedUsersLast5Days[];
+interface PrayerActivityTrendCardProps {
+    data: PrayerActivityTrendPoint[];
 }
 
-export function CustomerOrders({ data }: CustomerOrdersProps) {
+export function PrayerActivityTrendCard({ data }: PrayerActivityTrendCardProps) {
     const startCount = data[0]?.count ?? 0;
     const endCount = data[data.length - 1]?.count ?? 0;
     data.forEach((item) => (item.date_slice = item.date.slice(0, 5)));

@@ -1,27 +1,18 @@
 import { Card } from "@/components/ui/card";
 import { CardContent } from "@/components/ui/card";
+import { InstaSummaryBasic } from "@/services/insta";
 import { MousePointerClick } from "lucide-react";
 import { UsersRound } from "lucide-react";
 import { UserRound } from "lucide-react";
 import { Layers } from "lucide-react";
 
-export type MetricCardData = {
-    date: { title: string; date: string; weekday: string };
-    stats: { title: string; count: number }[];
-};
-
-interface InstaMetricCardsProps {
-    data: {
-        total_users: number;
-        total_groups: number;
-        total_usages: number;
-        total_group_usages: number;
-    };
+interface InstaBotSummaryMetricCardsProps {
+    data: InstaSummaryBasic;
 }
 
-export function MetricCardsInsta({ data }: InstaMetricCardsProps) {
+export function InstaBotSummaryMetricCards({ data }: InstaBotSummaryMetricCardsProps) {
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <Card className="bg-card border border-border hover:shadow-md transition-shadow bg-white p-0 rounded-sm">
                 <CardContent className="px-3 py-4 sm:px-4 sm:py-6 md:px-5 md:py-6 bg-rose-300/10 h-full">
                     <div className="flex items-start justify-between mb-1">

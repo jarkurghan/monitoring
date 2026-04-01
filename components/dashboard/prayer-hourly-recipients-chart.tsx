@@ -8,11 +8,11 @@ type PrayerTimeStat = {
     count: number;
 };
 
-interface ProfitChartProps {
+interface PrayerHourlyRecipientsChartProps {
     data: PrayerTimeStat[];
 }
 
-export function ProfitChart({ data }: ProfitChartProps) {
+export function PrayerHourlyRecipientsChart({ data }: PrayerHourlyRecipientsChartProps) {
     const sum = data.reduce((acc, curr) => acc + curr.count, 0);
     return (
         <Card className="bg-card border-border">

@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Namoz vaqtlari bot",
-    description: "Namoz vaqtlari Telegram botini monitoring qilish tizimi | Najmiddin Nazirov",
+    title: "Foydali telegram botlar",
+    description: "Telegram botlar monitoringi | Najmiddin Nazirov",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

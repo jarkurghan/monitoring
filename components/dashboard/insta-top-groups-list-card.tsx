@@ -1,12 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
-
-export type TopGroups = {
-    group_name: string;
-    total_count: number;
-    today_count: number;
-    sliced?: string;
-};
+import { InstaTopGroup } from "@/services/insta";
 
 const getRankColor = (rank: number) => {
     switch (rank) {
@@ -21,28 +15,18 @@ const getRankColor = (rank: number) => {
     }
 };
 
-const data = [
-    { group_name: "Quroldoshlar 2/5", total_count: 5, today_count: 5 },
-    { group_name: "ШАРК ЮЛДУЗИ 3 БУЛИМ ГРУППАСИ", total_count: 1, today_count: 0 },
-    { group_name: "☝️D Ò S T L A R I M☝️", total_count: 1, today_count: 0 },
-    { group_name: "ШАРК ЮЛДУЗИ 3 БУЛИМ ГРУППАСИ", total_count: 1, today_count: 0 },
-    // { group_name: "☝️D Ò S T L A R I M☝️", total_count: 1, today_count: 0 },
-];
-
-interface TopGroupsProps {
-    tops?: TopGroups[];
+interface InstaTopGroupsListCardProps {
+    data: InstaTopGroup[];
 }
 
-export function TopGroupsComponent({ tops }: TopGroupsProps) {
-    const rows = (tops && tops.length > 0 ? tops : data) as TopGroups[];
-
+export function InstaTopGroupsListCard({ data }: InstaTopGroupsListCardProps) {
     return (
         <Card className="bg-card border-border h-full">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-base font-medium">Top guruhlar</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-                {rows.map((row, index) => (
+                {data.map((row, index) => (
                     <div key={index} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <Badge

@@ -1,26 +1,15 @@
 "use client";
 
-import React from "react";
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { InstaNewestRow } from "@/services/insta";
 
-export interface LineChartProps {
-    date: string;
-    users: number;
-    groups: number;
-    dateSlice?: string;
+interface InstaWeeklyUsersGroupsChartProps {
+    data: InstaNewestRow[];
 }
 
-interface LineChartComponentProps {
-    data: LineChartProps[];
-}
-
-export function LineChartComponent({ data }: LineChartComponentProps) {
-    const normalized = (data ?? []).map((item) => ({
-        ...item,
-        dateSlice: item.dateSlice ?? String(item.date).slice(0, 5),
-    }));
+export function InstaWeeklyUsersGroupsChart({ data }: InstaWeeklyUsersGroupsChartProps) {
+    const normalized = (data ?? []).map((item) => ({ ...item, dateSlice: item.dateSlice ?? String(item.date).slice(0, 5) }));
 
     return (
         <Card className="bg-card border-border gap-0">

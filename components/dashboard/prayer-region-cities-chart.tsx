@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapData } from "./map";
+import type { PrayerRegionCount } from "./prayer-regions-map";
 import { getMapSelected } from "@/services/pray";
 
 interface CustomBarProps {
@@ -12,7 +12,7 @@ interface CustomBarProps {
     fill?: string;
 }
 
-export interface MapSelectedData {
+export interface PrayerRegionCityCount {
     city_id: number;
     count: number;
     name_2: string;
@@ -56,8 +56,8 @@ const colorFromName2 = (name2: string) => {
     return `hsl(${h} ${s}% ${l}%)`;
 };
 
-const CustomShapeBarChart: React.FC<{ region: MapData }> = ({ region }) => {
-    const [data, setData] = useState<MapSelectedData[]>([]);
+export function PrayerRegionCitiesChart({ region }: { region: PrayerRegionCount }) {
+    const [data, setData] = useState<PrayerRegionCityCount[]>([]);
 
     useEffect(() => {
         getMapSelected(region.viloyat).then((data) => setData([...data]));
@@ -94,6 +94,4 @@ const CustomShapeBarChart: React.FC<{ region: MapData }> = ({ region }) => {
             </CardContent>
         </Card>
     );
-};
-
-export default CustomShapeBarChart;
+}

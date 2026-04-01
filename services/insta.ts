@@ -10,6 +10,7 @@ export type InstaSummaryBasic = {
 export type InstaStatusCount = {
     status: string;
     count: number;
+    color?: string;
 };
 
 export type InstaTopGroup = {
@@ -22,6 +23,7 @@ export type InstaNewestRow = {
     date: string;
     users: number;
     groups: number;
+    dateSlice?: string;
 };
 
 const INSTA_BASE = `${process.env.API_URL}/api/insta-saver/stat`;
@@ -36,10 +38,6 @@ export async function getSummaryBasic(): Promise<InstaSummaryBasic> {
     return await fetchInsta<InstaSummaryBasic>("/summary-basic");
 }
 
-export async function getSummaryWithToday(): Promise<unknown> {
-    return await fetchInsta<unknown>("/summary-with-today");
-}
-
 export async function getTopGroups(groups: number): Promise<InstaTopGroup[]> {
     return await fetchInsta<InstaTopGroup[]>(`/top-groups/${groups}`);
 }
@@ -52,18 +50,6 @@ export async function getGroupsByStatus(): Promise<InstaStatusCount[]> {
     return await fetchInsta<InstaStatusCount[]>("/groups-by-status");
 }
 
-export async function getInstaNewUsersLastDays(days: number): Promise<unknown> {
-    return await fetchInsta<unknown>(`/new-users-last-days/${days}`);
-}
-
-export async function getInstaNewGroupsLastDays(days: number): Promise<unknown> {
-    return await fetchInsta<unknown>(`/new-groups-last-days/${days}`);
-}
-
-export async function getNewestLastDays(days: number): Promise<InstaNewestRow[]> {
-    return await fetchInsta<InstaNewestRow[]>(`/newest-last-days/${days}`);
-}
-
-export async function getInstaNewestLastWeeks(weeks: number): Promise<InstaNewestRow[]> {
-    return await fetchInsta<InstaNewestRow[]>(`/newest-last-weeks/${weeks}`);
+export async function getWeeklyCount(days: number): Promise<InstaNewestRow[]> {
+    return await fetchInsta<InstaNewestRow[]>(`/weekly-tashkent/${days}`);
 }

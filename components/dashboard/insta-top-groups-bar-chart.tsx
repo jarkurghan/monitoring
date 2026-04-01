@@ -2,17 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { TopGroups } from "./top-groups";
+import { InstaTopGroup } from "@/services/insta";
 
-interface ActivityCountsProps {
-    topGroups: TopGroups[];
+interface InstaTopGroupsBarChartProps {
+    data: InstaTopGroup[];
 }
 
-export function ActivityCounts({ topGroups }: ActivityCountsProps) {
-    const normalized = (topGroups ?? []).map((group) => ({
-        ...group,
-        sliced: group.sliced ?? group.group_name.slice(0, 9),
-    }));
+export function InstaTopGroupsBarChart({ data }: InstaTopGroupsBarChartProps) {
+    const normalized = (data ?? []).map((group) => ({ ...group, sliced: group.group_name.slice(0, 9) }));
 
     return (
         <Card className="bg-card border-border h-full">
@@ -34,5 +31,3 @@ export function ActivityCounts({ topGroups }: ActivityCountsProps) {
         </Card>
     );
 }
-
-export default ActivityCounts;

@@ -11,7 +11,7 @@ const navItems = [
     { label: "Insta saver bot", href: "/insta-saver-bot", icon: <Instagram className="h-4 w-4" /> },
 ];
 
-export function Header({ headerMenuItems }: { headerMenuItems: { label: string; href: string; target: string; icon: React.ReactNode }[] }) {
+export function MonitoringAppHeader({ headerMenuItems }: { headerMenuItems: { label: string; href: string; target: string; icon: React.ReactNode }[] }) {
     const pathname = usePathname();
 
     const isActive = (href: string) => {
@@ -23,8 +23,8 @@ export function Header({ headerMenuItems }: { headerMenuItems: { label: string; 
 
     return (
         <header className="inline-block sm:flex items-center justify-center w-full sm:w-auto">
-            <nav className="flex items-center justify-between sm:justify-center bg-card rounded-full px-2 py-1.5 border border-border">
-                <div className="w-full sm:w-auto rounded-full px-4 py-1.5 text-sm font-medium transition-colors bg-[var(--color-accent)] text-foreground">
+            <nav className="flex items-center justify-between sm:justify-center bg-card sm:rounded-full px-2 py-1.5 border border-border">
+                <div className="w-full sm:w-auto rounded-sm sm:rounded-full px-4 py-1.5 text-sm font-medium transition-colors bg-[var(--color-accent)] text-foreground">
                     <span className="inline-flex items-center gap-2">{currentItem?.label}</span>
                 </div>
 
@@ -39,8 +39,8 @@ export function Header({ headerMenuItems }: { headerMenuItems: { label: string; 
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         {headerMenuItems.map((item) => (
-                            <Link href={item.href} target={item.target || "_self"}>
-                                <DropdownMenuItem key={item.href}>
+                            <Link key={item.href} href={item.href} target={item.target || "_self"}>
+                                <DropdownMenuItem>
                                     {item.icon}
                                     {item.label}
                                 </DropdownMenuItem>
@@ -50,8 +50,8 @@ export function Header({ headerMenuItems }: { headerMenuItems: { label: string; 
                         {navItems
                             .filter((item) => item.href !== currentItem?.href)
                             .map((item) => (
-                                <Link href={item.href} target="_self">
-                                    <DropdownMenuItem key={item.href}>
+                                <Link key={item.href} href={item.href} target="_self">
+                                    <DropdownMenuItem>
                                         {item.icon}
                                         {item.label}
                                     </DropdownMenuItem>

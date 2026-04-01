@@ -19,13 +19,13 @@ const getStatusColor = (status: string) => {
     }
 };
 
-export type UserStatus = {
+export type PrayerUserStatusCount = {
     status: string;
     count: number;
     color?: string;
 };
 
-const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: UserStatus }> }) => {
+const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: PrayerUserStatusCount }> }) => {
     if (active && payload && payload.length) {
         const data = payload[0].payload;
         return (
@@ -38,11 +38,11 @@ const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<
     return null;
 };
 
-interface SalesMapProps {
-    data: UserStatus[];
+interface PrayerUsersByStatusCardProps {
+    data: PrayerUserStatusCount[];
 }
 
-export function SalesMap({ data }: SalesMapProps) {
+export function PrayerUsersByStatusCard({ data }: PrayerUsersByStatusCardProps) {
     data.forEach((item) => (item.color = getStatusColor(item.status)));
 
     return (

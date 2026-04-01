@@ -1,34 +1,34 @@
 "use client";
 
-import { MapComponent } from "./map-1";
-import MapSelected from "./map-selected";
+import { UzbekistanRegionsMapSvg } from "./prayer-regions-map-svg";
+import { PrayerRegionCitiesChart } from "./prayer-region-cities-chart";
 import { useState } from "react";
 
-export type MapData = {
+export type PrayerRegionCount = {
     viloyat: string;
     count: number;
     coordinates?: { x: number; y: number };
     size?: number;
 };
 
-interface MapProps {
-    data: MapData[];
+interface PrayerRegionsMapProps {
+    data: PrayerRegionCount[];
 }
 
-export function Map({ data }: MapProps) {
-    const [selectedRegion, setSelectedRegion] = useState<MapData>(data[0]);
+export function PrayerRegionsMap({ data }: PrayerRegionsMapProps) {
+    const [selectedRegion, setSelectedRegion] = useState<PrayerRegionCount>(data[0]);
 
-    const handleRegionClick = (region: MapData) => {
+    const handleRegionClick = (region: PrayerRegionCount) => {
         setSelectedRegion(region);
     };
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="h-full">
-                <MapComponent data={data} onRegionClick={handleRegionClick} />
+                <UzbekistanRegionsMapSvg data={data} onRegionClick={handleRegionClick} />
             </div>
             <div className="h-full">
-                <MapSelected region={selectedRegion} />
+                <PrayerRegionCitiesChart region={selectedRegion} />
             </div>
         </div>
     );

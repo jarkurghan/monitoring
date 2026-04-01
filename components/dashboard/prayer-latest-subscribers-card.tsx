@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
 
-export type LatestUser = {
+export type PrayerLatestSubscriber = {
     id: number;
     city: string | null;
     region: string | null;
@@ -24,18 +24,18 @@ const getStatusColor = (status: string) => {
     }
 };
 
-interface TopProductsProps {
-    latest: LatestUser[];
+interface PrayerLatestSubscribersCardProps {
+    data: PrayerLatestSubscriber[];
 }
 
-export function TopProducts({ latest }: TopProductsProps) {
+export function PrayerLatestSubscribersCard({ data }: PrayerLatestSubscribersCardProps) {
     return (
         <Card className="bg-card border-border h-full">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-base font-medium">Oxirgi obuna bo'lganlar</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-                {latest.slice(0, 4).map((row, index) => (
+                {data.slice(0, 4).map((row, index) => (
                     <div key={index} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="w-14 text-xs bg-muted text-muted-foreground rounded-full p-2 flex items-center justify-center">{row.id}</div>

@@ -4,18 +4,18 @@ import { CalendarDays } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Users } from "lucide-react";
 
-export type MetricCardData = {
+export type PrayerBotMetricSummary = {
     date: { title: string; date: string; weekday: string };
     stats: { title: string; count: number }[];
 };
 
-interface MetricCardsProps {
-    data: MetricCardData;
+interface PrayerBotMetricCardsProps {
+    data: PrayerBotMetricSummary;
 }
 
-export function MetricCards({ data }: MetricCardsProps) {
+export function PrayerBotMetricCards({ data }: PrayerBotMetricCardsProps) {
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <Card className="bg-card border border-border hover:shadow-md transition-shadow bg-white p-0 rounded-sm">
                 <CardContent className="px-3 py-4 sm:px-4 sm:py-6 md:px-5 md:py-6 bg-sky-300/10 h-full">
                     <div className="flex items-start justify-between mb-1">

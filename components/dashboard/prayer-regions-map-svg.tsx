@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CardContent } from "@/components/ui/card";
 import { Card } from "@/components/ui/card";
-import { MapData } from "./map";
+import type { PrayerRegionCount } from "./prayer-regions-map";
 
 const getViloyatSize = (count: number, maxSize: number) => {
     if (count === 0) return 0;
@@ -54,12 +54,12 @@ const getViloyatCoordinates = (viloyat: string) => {
     }
 };
 
-interface SalesMapProps {
-    data: MapData[];
-    onRegionClick: (region: MapData) => void;
+interface UzbekistanRegionsMapSvgProps {
+    data: PrayerRegionCount[];
+    onRegionClick: (region: PrayerRegionCount) => void;
 }
 
-function HoverTooltip({ data }: { data: MapData }) {
+function HoverTooltip({ data }: { data: PrayerRegionCount }) {
     return (
         <div className="bg-card px-3 py-2 rounded-lg shadow-lg text-xs font-medium border border-border w-[100px]">
             <p className="font-semibold text-[#781B22] text-ellipsis overflow-hidden whitespace-wrap">{data.viloyat}</p>
@@ -68,7 +68,7 @@ function HoverTooltip({ data }: { data: MapData }) {
     );
 }
 
-export function MapComponent({ data, onRegionClick }: SalesMapProps) {
+export function UzbekistanRegionsMapSvg({ data, onRegionClick }: UzbekistanRegionsMapSvgProps) {
     const BASE_WIDTH = 540;
     const BASE_HEIGHT = 360;
 
@@ -81,7 +81,7 @@ export function MapComponent({ data, onRegionClick }: SalesMapProps) {
         }));
     }, [data]);
 
-    const [hovered, setHovered] = useState<MapData | null>(null);
+    const [hovered, setHovered] = useState<PrayerRegionCount | null>(null);
     const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [scale, setScale] = useState<{ x: number; y: number }>({ x: 1, y: 1 });
