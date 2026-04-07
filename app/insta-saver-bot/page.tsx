@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-    const response = await Promise.all([getSummaryBasic(), getWeeklyCount(14), getUsersByStatus(), getGroupsByStatus(), getTopGroups(5)]);
+    const response = await Promise.all([getSummaryBasic(), getWeeklyCount(14), getUsersByStatus(), getGroupsByStatus(), getTopGroups(8)]);
     const [summary, newest, usersByStatus, groupsByStatus, topGroups] = response;
 
     const headerMenuItems = [

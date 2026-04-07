@@ -20,13 +20,15 @@ interface InstaTopGroupsListCardProps {
 }
 
 export function InstaTopGroupsListCard({ data }: InstaTopGroupsListCardProps) {
+    const groups = data.slice(0, 5);
+
     return (
         <Card className="bg-card border-border h-full">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-base font-medium">Top guruhlar</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-                {data.map((row, index) => (
+                {groups.map((row, index) => (
                     <div key={index} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <Badge

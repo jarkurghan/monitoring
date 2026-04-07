@@ -37,7 +37,7 @@ export function InstaWeeklyUsersGroupsChart({ data }: InstaWeeklyUsersGroupsChar
                         <LineChart data={normalized} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="dateSlice" tick={{ fontSize: 11 }} />
-                            <Tooltip contentStyle={{ fontSize: 14, borderRadius: "8px", backgroundColor: "#e5e5e5", fontWeight: "600" }} />
+                            <Tooltip contentStyle={{ fontSize: 14, borderRadius: "8px", backgroundColor: "#F3F3F3", fontWeight: "600" }} />
                             <Legend />
                             <Line
                                 type="monotone"

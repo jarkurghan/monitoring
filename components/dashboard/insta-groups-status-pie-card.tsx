@@ -69,7 +69,7 @@ export function InstaGroupsStatusPieCard({ data }: InstaGroupsStatusPieCardProps
                         </div>
                         <div>
                             <p className="text-xs text-muted-foreground">Foydalanilmayapti</p>
-                            <p className="text-2xl font-semibold">{data.find((item) => item.status === "O'chirilgan")?.count || 0}</p>
+                            <p className="text-2xl font-semibold">{data.find((item) => item.status === "Chiqib ketgan")?.count || 0}</p>
                         </div>
                         <div>
                             <p className="text-xs text-muted-foreground">Boshqa holatdagilar</p>
