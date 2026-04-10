@@ -7,15 +7,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  redirects: async () => {
-    return [
-      {
-        source: '/',
-        destination: '/prayer-times-bot',
-        permanent: true,
-      },
-    ];
-  },
 }
 
 export default nextConfig
