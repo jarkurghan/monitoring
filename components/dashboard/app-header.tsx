@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { ChevronDown, Clock, Instagram } from "lucide-react";
+import { ChevronDown, Clock, Instagram, Play } from "lucide-react";
 import { Button } from "../ui/button";
 
 const navItems = [
     { label: "Namoz vaqtlari bot", href: "/prayer-times-bot", icon: <Clock className="h-4 w-4" /> },
     { label: "Insta saver bot", href: "/insta-saver-bot", icon: <Instagram className="h-4 w-4" /> },
+    { label: "Anime bot", href: "/anime-bot", icon: <Play className="h-4 w-4" /> },
 ];
 
 export function MonitoringAppHeader({ headerMenuItems }: { headerMenuItems: { label: string; href: string; target: string; icon: React.ReactNode }[] }) {

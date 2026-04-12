@@ -35,7 +35,7 @@ interface InstaUsersStatusPieCardProps {
     data: InstaStatusCount[];
 }
 
-export function InstaUsersStatusPieCard({ data }: InstaUsersStatusPieCardProps) {
+export function CommonUsersStatusPieCard({ data }: InstaUsersStatusPieCardProps) {
     data.forEach((item) => (item.color = getStatusColor(item.status)));
 
     return (

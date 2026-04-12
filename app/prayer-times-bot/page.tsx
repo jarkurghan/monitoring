@@ -1,7 +1,7 @@
 import { PrayerHourlyRecipientsChart } from "@/components/dashboard/prayer-hourly-recipients-chart";
 import { PrayerLatestSubscribersCard } from "@/components/dashboard/prayer-latest-subscribers-card";
 import { PrayerUsersByStatusCard } from "@/components/dashboard/prayer-users-by-status-card";
-import { PrayerActivityTrendCard } from "@/components/dashboard/prayer-activity-trend-card";
+import { CommonActivityTrendCard } from "@/components/dashboard/common-activity-trend-card";
 import { PrayerBotMetricCards } from "@/components/dashboard/prayer-bot-metric-cards";
 import { PrayerRegionsMap } from "@/components/dashboard/prayer-regions-map";
 import { MonitoringAppHeader } from "@/components/dashboard/app-header";
@@ -53,7 +53,7 @@ export default async function DashboardPage() {
                             <PrayerUsersByStatusCard data={userStatus} />
                         </div>
                         <div className="h-full lg:col-span-3">
-                            <PrayerActivityTrendCard data={updatedUsersLast5Days} />
+                            <CommonActivityTrendCard data={updatedUsersLast5Days} />
                         </div>
                     </div>
 

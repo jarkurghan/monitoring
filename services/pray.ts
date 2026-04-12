@@ -6,6 +6,7 @@ import type { PrayerUserStatusCount } from "@/components/dashboard/prayer-users-
 import type { PrayerLatestSubscriber } from "@/components/dashboard/prayer-latest-subscribers-card";
 import type { PrayerRegionCount } from "@/components/dashboard/prayer-regions-map";
 import type { PrayerRegionCityCount } from "@/components/dashboard/prayer-region-cities-chart";
+import { DAY_COUNT } from "@/lib/constants";
 
 export type PrayerTimeStat = { hour: number; count: number };
 
@@ -24,8 +25,8 @@ export async function getLatestUsers(): Promise<PrayerLatestSubscriber[]> {
 }
 
 export async function getLastActivities(): Promise<PrayerActivityTrendPoint[]> {
-    const res = await fetch(`${process.env.API_URL}/api/prayer-time/stat/updated-users-last-days/14`, { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to fetch updated-users-last-days data");
+    const res = await fetch(`${process.env.API_URL}/api/prayer-time/stat/created-users-till-days/${DAY_COUNT}`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch created-users-till-days data");
     const data = await res.json();
     return data as PrayerActivityTrendPoint[];
 }

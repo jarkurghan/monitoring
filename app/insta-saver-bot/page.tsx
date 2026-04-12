@@ -1,7 +1,7 @@
 import { InstaWeeklyUsersGroupsChart } from "@/components/dashboard/insta-weekly-users-groups-chart";
 import { InstaBotSummaryMetricCards } from "@/components/dashboard/insta-bot-summary-metric-cards";
 import { InstaGroupsStatusPieCard } from "@/components/dashboard/insta-groups-status-pie-card";
-import { InstaUsersStatusPieCard } from "@/components/dashboard/insta-users-status-pie-card";
+import { CommonUsersStatusPieCard } from "@/components/dashboard/common-users-status-pie-card";
 import { InstaTopGroupsListCard } from "@/components/dashboard/insta-top-groups-list-card";
 import { InstaTopGroupsBarChart } from "@/components/dashboard/insta-top-groups-bar-chart";
 import { MonitoringAppHeader } from "@/components/dashboard/app-header";
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-1 h-full">
-                            <InstaUsersStatusPieCard data={usersByStatus} />
+                            <CommonUsersStatusPieCard data={usersByStatus} />
                         </div>
                         <div className="lg:col-span-1 h-full">
                             <InstaGroupsStatusPieCard data={groupsByStatus} />

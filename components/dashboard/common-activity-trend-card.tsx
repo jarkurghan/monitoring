@@ -3,16 +3,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-export type PrayerActivityTrendPoint = { date: string; weekday: string; count: number; date_slice?: string };
+export type CommonActivityTrendPoint = { date: string; users: number; dateSlice?: string };
 
-interface PrayerActivityTrendCardProps {
-    data: PrayerActivityTrendPoint[];
+interface CommonActivityTrendCardProps {
+    data: CommonActivityTrendPoint[];
 }
 
-export function PrayerActivityTrendCard({ data }: PrayerActivityTrendCardProps) {
-    const startCount = data[0]?.count ?? 0;
-    const endCount = data[data.length - 1]?.count ?? 0;
-    data.forEach((item) => (item.date_slice = item.date.slice(0, 5)));
+export function CommonActivityTrendCard({ data }: CommonActivityTrendCardProps) {
+    const startCount = data[0]?.users ?? 0;
+    const endCount = data[data.length - 1]?.users ?? 0;
+    data.forEach((item) => (item.dateSlice = item.date.slice(0, 2)));
 
     const diff = endCount - startCount;
     const diffSign = diff > 0 ? "+" : diff < 0 ? "-" : "";
@@ -31,7 +31,7 @@ export function PrayerActivityTrendCard({ data }: PrayerActivityTrendCardProps) 
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <p className="text-3xl font-semibold">{data.reduce((acc, curr) => acc + curr.count, 0)}</p>
+                        <p className="text-3xl font-semibold">{endCount}</p>
                         <div className="flex flex-col">
                             <span
                                 className={`text-xs px-2 py-0.5 rounded-full ${diff > 0 ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : diff < 0 ? "bg-red-500/20 text-red-600 dark:text-red-400" : "bg-muted text-muted-foreground"}`}
@@ -54,13 +54,14 @@ export function PrayerActivityTrendCard({ data }: PrayerActivityTrendCardProps) 
                                     <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <XAxis dataKey="date_slice" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#737373" }} />
-                            <YAxis hide />
+                            <XAxis dataKey="dateSlice" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#737373" }} />
+                            <YAxis hide domain={[startCount - Math.floor((endCount - startCount) * 0.5), "dataMax"]} />
                             <Tooltip
                                 contentStyle={{ backgroundColor: "#1a1a1a", border: "none", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
-                                formatter={(value: number) => [value.toLocaleString(), "Faollik"]}
+                                formatter={(value: number) => [value.toLocaleString(), "Foydalanuvchilar soni"]}
+                                labelFormatter={(_, payload) => payload?.[0]?.payload?.date || ""}
                             />
-                            <Area type="monotone" dataKey="count" stroke="#a3a6f1" strokeWidth={2} fill="url(#orderGradient)" />
+                            <Area type="monotone" dataKey="users" stroke="#a3a6f1" strokeWidth={2} fill="url(#orderGradient)" />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>
