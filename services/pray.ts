@@ -1,11 +1,11 @@
 "use server";
 
 import type { PrayerBotMetricSummary } from "@/components/dashboard/prayer-bot-metric-cards";
-import type { PrayerActivityTrendPoint } from "@/components/dashboard/prayer-activity-trend-card";
-import type { PrayerUserStatusCount } from "@/components/dashboard/prayer-users-by-status-card";
+import type { CommonActivityTrendPoint } from "@/components/dashboard/common-activity-trend-card";
 import type { PrayerLatestSubscriber } from "@/components/dashboard/prayer-latest-subscribers-card";
-import type { PrayerRegionCount } from "@/components/dashboard/prayer-regions-map";
+import type { PrayerUserStatusCount } from "@/components/dashboard/prayer-users-by-status-card";
 import type { PrayerRegionCityCount } from "@/components/dashboard/prayer-region-cities-chart";
+import type { PrayerRegionCount } from "@/components/dashboard/prayer-regions-map";
 import { DAY_COUNT } from "@/lib/constants";
 
 export type PrayerTimeStat = { hour: number; count: number };
@@ -24,11 +24,11 @@ export async function getLatestUsers(): Promise<PrayerLatestSubscriber[]> {
     return data as PrayerLatestSubscriber[];
 }
 
-export async function getLastActivities(): Promise<PrayerActivityTrendPoint[]> {
+export async function getLastActivities(): Promise<CommonActivityTrendPoint[]> {
     const res = await fetch(`${process.env.API_URL}/api/prayer-time/stat/created-users-till-days/${DAY_COUNT}`, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch created-users-till-days data");
     const data = await res.json();
-    return data as PrayerActivityTrendPoint[];
+    return data as CommonActivityTrendPoint[];
 }
 
 export async function getUserStatus(): Promise<PrayerUserStatusCount[]> {

@@ -43,6 +43,18 @@ export type AnimeTotalUsers = {
     dateSlice?: string;
 };
 
+export type AnimeLatestAnimes = {
+    anime_name: string;
+    number_of_episode: number;
+    episode_count: number;
+    dub_name: string;
+    created_date: string | Date | null;
+};
+
+export type AnimeCommonPieCardData =
+    | { name?: string; dub_name: string; count: number; color?: string }
+    | { name?: string; anime_name: string; count: number; color?: string };
+
 const ANIME_BASE = `${process.env.API_URL}/api/anime/stat`;
 
 async function fetchAnime<T>(path: string): Promise<T> {
@@ -59,8 +71,16 @@ export async function getTopDubs(topCount: number): Promise<AnimeTopDub[]> {
     return await fetchAnime<AnimeTopDub[]>(`/top-dubs/${topCount}`);
 }
 
+export async function getTop5Dubs(): Promise<AnimeCommonPieCardData[]> {
+    return await fetchAnime<AnimeCommonPieCardData[]>(`/top-dubs`);
+}
+
 export async function getTopAnimes(topCount: number): Promise<AnimeTopAnime[]> {
     return await fetchAnime<AnimeTopAnime[]>(`/top-animes/${topCount}`);
+}
+
+export async function getTop5Animes(): Promise<AnimeCommonPieCardData[]> {
+    return await fetchAnime<AnimeCommonPieCardData[]>(`/top-animes`);
 }
 
 export async function getTopUsers(topCount: number): Promise<AnimeTopUsers[]> {
@@ -77,4 +97,8 @@ export async function getDailyNewUsers(dayCount: number): Promise<AnimeDailyNewU
 
 export async function getDailyTotalUsers(dayCount: number): Promise<AnimeTotalUsers[]> {
     return await fetchAnime<AnimeTotalUsers[]>(`/daily-total-users/${dayCount}`);
+}
+
+export async function getLatestAnimes(limit: number): Promise<AnimeLatestAnimes[]> {
+    return await fetchAnime<AnimeLatestAnimes[]>(`/latest-animes/${limit}`);
 }

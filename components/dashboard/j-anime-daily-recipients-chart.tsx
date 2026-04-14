@@ -18,7 +18,7 @@ export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartPro
     data.forEach((item) => (item.dateSlice = item.date.slice(0, 2)));
 
     return (
-        <Card className="bg-card border-border">
+        <Card className="bg-card border-border h-full">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div>
                     <CardTitle className="text-base font-medium">Yangi foydalanuvchilar soni</CardTitle>
@@ -26,7 +26,7 @@ export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartPro
                 <div className="flex items-center gap-6 mb-4">
                     <div className="ml-auto flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded bg-[#fdba74] flex items-center justify-center">
+                            <div className="w-6 h-6 rounded bg-[#74b466] flex items-center justify-center">
                                 <span className="text-[10px] text-orange-600 font-bold"></span>
                             </div>
                             <div>
@@ -37,7 +37,7 @@ export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartPro
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className="">
+            <CardContent className="mt-auto">
                 <div className="h-[200px] ml-[-40px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data} barGap={2}>
@@ -51,7 +51,7 @@ export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartPro
                             />
                             <Bar dataKey="users" radius={[4, 4, 0, 0]} maxBarSize={20}>
                                 {data.map((entry, index) => (
-                                    <Cell key={`count-${index}`} fill="#fdba74" />
+                                    <Cell key={`count-${index}`} fill="#74b466" />
                                 ))}
                             </Bar>
                         </BarChart>

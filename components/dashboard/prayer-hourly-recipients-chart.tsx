@@ -26,7 +26,7 @@ export function PrayerHourlyRecipientsChart({ data }: PrayerHourlyRecipientsChar
                 <div className="flex items-center gap-6 mb-4">
                     <div className="ml-auto flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded bg-[#fdba74] flex items-center justify-center">
+                            <div className="w-6 h-6 rounded bg-[#545aa6cc] flex items-center justify-center">
                                 <span className="text-[10px] text-orange-600 font-bold"></span>
                             </div>
                             <div>
@@ -51,7 +51,7 @@ export function PrayerHourlyRecipientsChart({ data }: PrayerHourlyRecipientsChar
                             />
                             <Bar dataKey="count" radius={[4, 4, 0, 0]} maxBarSize={20}>
                                 {data.map((entry, index) => (
-                                    <Cell key={`count-${index}`} fill="#fdba74" />
+                                    <Cell key={`count-${index}`} fill="#545aa6cc" />
                                 ))}
                             </Bar>
                         </BarChart>

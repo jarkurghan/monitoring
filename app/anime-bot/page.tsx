@@ -6,13 +6,18 @@ import { AnimeDailyRecipientsChart } from "@/components/dashboard/j-anime-daily-
 import { AnimeBotSummaryMetricCards } from "@/components/dashboard/j-anime-bot-summary-metric-cards";
 import { CommonUsersStatusPieCard } from "@/components/dashboard/common-users-status-pie-card";
 import { CommonActivityTrendCard } from "@/components/dashboard/common-activity-trend-card";
+import { AnimeLatestAnimesTableCard } from "@/components/dashboard/j-anime-latest-animes-table-card";
+import { AnimeCommonPieCard } from "@/components/dashboard/j-anime-common-pie-card";
 import { MonitoringAppHeader } from "@/components/dashboard/app-header";
 import { DashboardPageTitle } from "@/components/dashboard/app-title";
+import { getTop5Animes, getTop5Dubs } from "@/services/anime";
+import { AnimeCommonPieCardData } from "@/services/anime";
 import { DAY_COUNT, TOP_COUNT } from "@/lib/constants";
 import { getDailyTotalUsers } from "@/services/anime";
 import { getDailyNewUsers } from "@/services/anime";
 import { getUsersByStatus } from "@/services/anime";
 import { getSummaryBasic } from "@/services/anime";
+import { getLatestAnimes } from "@/services/anime";
 import { getTopAnimes } from "@/services/anime";
 import { getTopUsers } from "@/services/anime";
 import { getTopDubs } from "@/services/anime";
@@ -33,8 +38,14 @@ export default async function DashboardPage() {
         getUsersByStatus(),
         getDailyNewUsers(DAY_COUNT),
         getDailyTotalUsers(DAY_COUNT),
+        getLatestAnimes(5),
+        getTop5Animes(),
+        getTop5Dubs(),
     ]);
-    const [summary, topDubs, topAnimes, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days] = response;
+    const [summary, topDubs, topAnimes, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestAnimes, top5Animes, top5Dubs] = response;
+
+    // to-do: yana yangi statslar qo'shish mumkin:
+    // 3. qaysi dublar nechtadan anime dublaj qilishgan;
 
     const headerMenuItems = [
         { label: "Bot yangiliklari", href: "https://t.me/meni_botlarim", target: "_blank", icon: <Bell /> },
@@ -52,7 +63,7 @@ export default async function DashboardPage() {
                     <AnimeBotSummaryMetricCards data={summary} />
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
-                        <div className="lg:col-span-2">
+                        <div className="lg:col-span-2 h-full">
                             <AnimeDailyRecipientsChart data={dailyNewUsers} />
                         </div>
                         <div className="lg:col-span-1 h-full">
@@ -60,9 +71,21 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 sm:mb-6">
+                        <div className="lg:col-span-1 h-full">
+                            <AnimeCommonPieCard data={top5Dubs} title="dub" />
+                        </div>
+                        <div className="lg:col-span-1 h-full">
+                            <AnimeCommonPieCard data={top5Animes} title="anime" />
+                        </div>
+                        {/* <div className="lg:col-span-3 h-full">
+                            <AnimeCommonPieCard data={top5Dubs} title="dub" />
+                        </div> */}
+                    </div>
+
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-2 h-full">
-                            <CommonUsersStatusPieCard data={usersByStatus} />
+                            <AnimeLatestAnimesTableCard data={latestAnimes} />
                         </div>
                         <div className="h-full lg:col-span-3">
                             <CommonActivityTrendCard data={updatedUsersLast5Days} />

@@ -15,17 +15,20 @@ export function InstaWeeklyUsersGroupsChart({ data }: InstaWeeklyUsersGroupsChar
         <Card className="bg-card border-border gap-0">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div>
-                    <CardTitle className="text-base font-medium">Yangi foydalanuvchilar soni</CardTitle>
+                    <CardTitle className="text-base font-medium">Aktivlik diagrammasi</CardTitle>
                 </div>
                 <div className="hidden sm:flex items-center gap-6 mb-4">
                     <div className="ml-auto flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded bg-[#fdba74] flex items-center justify-center">
+                            <div
+                                className="w-6 h-6 rounded flex items-center justify-center"
+                                style={{ background: "linear-gradient(-135deg, #8884d8, #82ca9d)" }}
+                            >
                                 <span className="text-[10px] text-orange-600 font-bold"></span>
                             </div>
                             <div>
-                                <p className="text-xs font-medium">Hafta bo'yicha</p>
-                                <p className="text-xs font-medium">yangi foydalanuvchilar soni</p>
+                                <p className="text-xs font-medium">Haftalik aktivlik</p>
+                                <p className="text-xs font-medium">foydalanuvchilar soni</p>
                             </div>
                         </div>
                     </div>
