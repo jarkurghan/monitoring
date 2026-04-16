@@ -1,17 +1,20 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { AnimeCommonPieCardData } from "@/services/anime";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { generateColor } from "@/lib/generate-color";
 
-interface AnimeCommonPieCardProps {
-    data: AnimeCommonPieCardData[];
+export type CommonPartPieCardData =
+    | { name?: string; dub_name: string; count: number; color?: string }
+    | { name?: string; anime_name: string; count: number; color?: string };
+
+interface CommonPartPieCardProps {
+    data: CommonPartPieCardData[];
     title: string;
 }
 
-export function AnimeCommonPieCard({ data, title }: AnimeCommonPieCardProps) {
+export function CommonPartPieCard({ data, title }: CommonPartPieCardProps) {
     data.forEach((item) => {
         item.name = "dub_name" in item ? item.dub_name : item.anime_name;
         item.color = generateColor(item.name);

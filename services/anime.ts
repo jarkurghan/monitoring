@@ -1,5 +1,7 @@
 "use server";
 
+import { CommonPartPieCardData } from "@/components/dashboard/common-part-pie-card";
+
 export type AnimeSummaryBasic = {
     total_users: number;
     total_dubs: number;
@@ -51,10 +53,6 @@ export type AnimeLatestAnimes = {
     created_date: string | Date | null;
 };
 
-export type AnimeCommonPieCardData =
-    | { name?: string; dub_name: string; count: number; color?: string }
-    | { name?: string; anime_name: string; count: number; color?: string };
-
 const ANIME_BASE = `${process.env.API_URL}/api/anime/stat`;
 
 async function fetchAnime<T>(path: string): Promise<T> {
@@ -71,16 +69,16 @@ export async function getTopDubs(topCount: number): Promise<AnimeTopDub[]> {
     return await fetchAnime<AnimeTopDub[]>(`/top-dubs/${topCount}`);
 }
 
-export async function getTop5Dubs(): Promise<AnimeCommonPieCardData[]> {
-    return await fetchAnime<AnimeCommonPieCardData[]>(`/top-dubs`);
+export async function getTop5Dubs(): Promise<CommonPartPieCardData[]> {
+    return await fetchAnime<CommonPartPieCardData[]>(`/top-dubs`);
 }
 
 export async function getTopAnimes(topCount: number): Promise<AnimeTopAnime[]> {
     return await fetchAnime<AnimeTopAnime[]>(`/top-animes/${topCount}`);
 }
 
-export async function getTop5Animes(): Promise<AnimeCommonPieCardData[]> {
-    return await fetchAnime<AnimeCommonPieCardData[]>(`/top-animes`);
+export async function getTop5Animes(): Promise<CommonPartPieCardData[]> {
+    return await fetchAnime<CommonPartPieCardData[]>(`/top-animes`);
 }
 
 export async function getTopUsers(topCount: number): Promise<AnimeTopUsers[]> {

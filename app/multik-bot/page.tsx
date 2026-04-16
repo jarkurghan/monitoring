@@ -14,18 +14,20 @@ import { getTop5Animes, getTop5Dubs } from "@/services/anime";
 import { DAY_COUNT, TOP_COUNT } from "@/lib/constants";
 import { getDailyTotalUsers } from "@/services/anime";
 import { getDailyNewUsers } from "@/services/anime";
-import { getUsersByStatus } from "@/services/anime";
-import { getSummaryBasic } from "@/services/anime";
+// import { getUsersByStatus } from "@/services/anime";
+// import { getSummaryBasic } from "@/services/anime";
 import { getLatestAnimes } from "@/services/anime";
 import { getTopAnimes } from "@/services/anime";
 import { getTopUsers } from "@/services/anime";
 import { getTopDubs } from "@/services/anime";
 import { ExternalLink } from "lucide-react";
 import { Bell } from "lucide-react";
+import { MovieSummaryMetricCards } from "@/components/dashboard/movie-summary-metric-cards";
+import { getSummaryBasic, getUsersByStatus } from "@/services/movie";
 
 export const metadata: Metadata = {
-    title: "Anime bot",
-    description: "AniUZ Telegram botini monitoring qilish tizimi | Najmiddin Nazirov",
+    title: "Multfilm bot",
+    description: "Multfilm kodlari botini monitoring qilish tizimi | Najmiddin Nazirov",
 };
 
 export default async function DashboardPage() {
@@ -43,27 +45,24 @@ export default async function DashboardPage() {
     ]);
     const [summary, topDubs, topAnimes, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestAnimes, top5Animes, top5Dubs] = response;
 
-    // to-do: yana yangi statslar qo'shish mumkin:
-    // 3. qaysi dublar nechtadan anime dublaj qilishgan;
-
     const headerMenuItems = [
         { label: "Bot yangiliklari", href: "https://t.me/meni_botlarim", target: "_blank", icon: <Bell /> },
-        { label: "Botga o'tish", href: "https://t.me/aniuz_bot", target: "_blank", icon: <ExternalLink /> },
+        { label: "Botga o'tish", href: "https://t.me/uz_multfilm_bot", target: "_blank", icon: <ExternalLink /> },
     ];
 
     return (
         <div className="min-h-screen bg-background p-0 sm:p-4 md:p-6 lg:p-8">
             <div className="max-w-[1400px] mx-auto">
-                <DashboardPageTitle title="Bot statistikasi" description="Insta saver boti foydalanuvchilari bo'yicha statistika">
+                <DashboardPageTitle title="Bot statistikasi" description="Multfilm boti foydalanuvchilari bo'yicha statistika">
                     <MonitoringAppHeader headerMenuItems={headerMenuItems} />
                 </DashboardPageTitle>
 
                 <div className="px-2 sm:p-0">
-                    <AnimeBotSummaryMetricCards data={summary} />
+                    <MovieSummaryMetricCards data={summary} />
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-2 h-full">
-                            <CommonDailyRecipientsChart data={dailyNewUsers} color="#74b466" />
+                            <CommonDailyRecipientsChart data={dailyNewUsers} color="#55a6cc" />
                         </div>
                         <div className="lg:col-span-1 h-full">
                             <CommonUsersStatusPieCard data={usersByStatus} />
@@ -75,7 +74,7 @@ export default async function DashboardPage() {
                             <CommonPartPieCard data={top5Dubs} title="dub" />
                         </div>
                         <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Animes} title="anime" />
+                            <CommonPartPieCard data={top5Animes} title="multfilm" />
                         </div>
                     </div>
 

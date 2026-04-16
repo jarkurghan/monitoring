@@ -4,17 +4,18 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DAY_COUNT } from "@/lib/constants";
 
-type PrayerTimeStat = {
+type CommonDailyRecipientsStat = {
     date: string;
     users: number;
     dateSlice?: string;
 };
 
-interface AnimeDailyRecipientsChartProps {
-    data: PrayerTimeStat[];
+interface CommonDailyRecipientsChartProps {
+    data: CommonDailyRecipientsStat[];
+    color: string;
 }
 
-export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartProps) {
+export function CommonDailyRecipientsChart({ data, color }: CommonDailyRecipientsChartProps) {
     data.forEach((item) => (item.dateSlice = item.date.slice(0, 2)));
 
     return (
@@ -26,7 +27,7 @@ export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartPro
                 <div className="flex items-center gap-6 mb-4">
                     <div className="ml-auto flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded bg-[#74b466] flex items-center justify-center">
+                            <div className={`w-6 h-6 rounded flex items-center justify-center`} style={{backgroundColor: color}}>
                                 <span className="text-[10px] text-orange-600 font-bold"></span>
                             </div>
                             <div>
@@ -51,7 +52,7 @@ export function AnimeDailyRecipientsChart({ data }: AnimeDailyRecipientsChartPro
                             />
                             <Bar dataKey="users" radius={[4, 4, 0, 0]} maxBarSize={20}>
                                 {data.map((entry, index) => (
-                                    <Cell key={`count-${index}`} fill="#74b466" />
+                                    <Cell key={`count-${index}`} fill={color} />
                                 ))}
                             </Bar>
                         </BarChart>
