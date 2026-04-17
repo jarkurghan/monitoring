@@ -12,18 +12,20 @@ import { MonitoringAppHeader } from "@/components/dashboard/app-header";
 import { DashboardPageTitle } from "@/components/dashboard/app-title";
 import { getTop5Animes, getTop5Dubs } from "@/services/anime";
 import { DAY_COUNT, TOP_COUNT } from "@/lib/constants";
-import { getDailyTotalUsers } from "@/services/anime";
-import { getDailyNewUsers } from "@/services/anime";
+// import { getDailyTotalUsers } from "@/services/anime";
+// import { getDailyNewUsers } from "@/services/anime";
 // import { getUsersByStatus } from "@/services/anime";
 // import { getSummaryBasic } from "@/services/anime";
 import { getLatestAnimes } from "@/services/anime";
 import { getTopAnimes } from "@/services/anime";
-import { getTopUsers } from "@/services/anime";
+// import { getTopUsers } from "@/services/anime";
 import { getTopDubs } from "@/services/anime";
 import { ExternalLink } from "lucide-react";
 import { Bell } from "lucide-react";
 import { MovieSummaryMetricCards } from "@/components/dashboard/movie-summary-metric-cards";
-import { getSummaryBasic, getUsersByStatus } from "@/services/movie";
+import { getDailyNewUsers, getDailyTotalUsers, getLatestMovies, getSummaryBasic, getTop5Movies, getTopMovies, getTopUsers, getUsersByStatus } from "@/services/movie";
+import { MovieLatestMoviesTableCard } from "@/components/dashboard/movie-latest-movies-table-card";
+import { MovieTopMoviesListCard } from "@/components/dashboard/movie-top-movies-list-card";
 
 export const metadata: Metadata = {
     title: "Multfilm bot",
@@ -34,16 +36,16 @@ export default async function DashboardPage() {
     const response = await Promise.all([
         getSummaryBasic(),
         getTopDubs(TOP_COUNT),
-        getTopAnimes(TOP_COUNT),
+        getTopMovies(TOP_COUNT),
         getTopUsers(TOP_COUNT),
         getUsersByStatus(),
         getDailyNewUsers(DAY_COUNT),
         getDailyTotalUsers(DAY_COUNT),
-        getLatestAnimes(5),
-        getTop5Animes(),
+        getLatestMovies(5),
+        getTop5Movies(),
         getTop5Dubs(),
     ]);
-    const [summary, topDubs, topAnimes, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestAnimes, top5Animes, top5Dubs] = response;
+    const [summary, topDubs, topMovies, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestMovies, top5Movies, top5Dubs] = response;
 
     const headerMenuItems = [
         { label: "Bot yangiliklari", href: "https://t.me/meni_botlarim", target: "_blank", icon: <Bell /> },
@@ -69,33 +71,24 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 sm:mb-6">
-                        <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Dubs} title="dub" />
+                    <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 mb-4 sm:mb-6">
+                        <div className="lg:col-span-4 h-full">
+                            <CommonPartPieCard data={top5Movies} title="multfilm" />
                         </div>
-                        <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Animes} title="multfilm" />
+                        <div className="lg:col-span-3 h-full">
+                            <MovieTopMoviesListCard data={topMovies} />
+                        </div>
+                        <div className="h-full lg:col-span-3">
+                            <AnimeTopUsersListCard data={topUsers} />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-2 h-full">
-                            <AnimeLatestAnimesTableCard data={latestAnimes} />
+                            <MovieLatestMoviesTableCard data={latestMovies} />
                         </div>
                         <div className="h-full lg:col-span-3">
                             <CommonActivityTrendCard data={updatedUsersLast5Days} />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
-                        <div className="lg:col-span-1 h-full">
-                            <AnimeTopDubsListCard data={topDubs} />
-                        </div>
-                        <div className="lg:col-span-1 h-full">
-                            <AnimeTopAnimesListCard data={topAnimes} />
-                        </div>
-                        <div className="h-full lg:col-span-1">
-                            <AnimeTopUsersListCard data={topUsers} />
                         </div>
                     </div>
                 </div>

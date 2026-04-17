@@ -8,7 +8,8 @@ export type MovieSummaryBasic = {
 };
 
 export type MovieTopMovie = {
-    movie_name: string;
+    description: string;
+    movie_name?: string;
     total_count: number;
     today_count: number;
 };
@@ -38,15 +39,15 @@ export type MovieTotalUsers = {
 };
 
 export type MovieLatestMovies = {
-    movie_name: string;
-    number_of_episode: number;
-    episode_count: number;
-    dub_name: string;
-    created_date: string | Date | null;
+    code: string;
+    description: string | null;
+    movie_name?: string;
+    quality?: string[];
 };
 
 export type MovieCommonPieCardData =
     | { name?: string; dub_name: string; count: number; color?: string }
+    | { name?: string; movie_name: string; count: number; color?: string }
     | { name?: string; movie_name: string; count: number; color?: string };
 
 const MOVIE_BASE = `${process.env.API_URL}/api/movie/stat`;
@@ -69,17 +70,19 @@ export async function getSummaryBasic(): Promise<MovieSummaryBasic> {
 //     return await fetchMovie<MovieCommonPieCardData[]>(`/top-dubs`);
 // }
 
-// export async function getTopMovies(topCount: number): Promise<MovieTopMovie[]> {
-//     return await fetchMovie<MovieTopMovie[]>(`/top-movies/${topCount}`);
-// }
+export async function getTopMovies(topCount: number): Promise<MovieTopMovie[]> {
+    const data = await fetchMovie<MovieTopMovie[]>(`/top-movies/${topCount}`);
+    return data.map((item) => ({ ...item, movie_name: item.description?.split("\n")[0] }));
+}
 
-// export async function getTop5Movies(): Promise<MovieCommonPieCardData[]> {
-//     return await fetchMovie<MovieCommonPieCardData[]>(`/top-movies`);
-// }
+export async function getTop5Movies(): Promise<MovieCommonPieCardData[]> {
+    const data = await fetchMovie<MovieTopMovie[]>(`/top-movies`);
+    return data.map((item) => ({ count: item.total_count, movie_name: item.description?.split("\n")[0] }));
+}
 
-// export async function getTopUsers(topCount: number): Promise<MovieTopUsers[]> {
-//     return await fetchMovie<MovieTopUsers[]>(`/top-users/${topCount}`);
-// }
+export async function getTopUsers(topCount: number): Promise<MovieTopUsers[]> {
+    return await fetchMovie<MovieTopUsers[]>(`/top-users/${topCount}`);
+}
 
 export async function getUsersByStatus(): Promise<MovieStatusCount[]> {
     return await fetchMovie<MovieStatusCount[]>("/users-by-status");
@@ -89,10 +92,40 @@ export async function getDailyNewUsers(dayCount: number): Promise<MovieDailyNewU
     return await fetchMovie<MovieDailyNewUsers[]>(`/daily-new-users/${dayCount}`);
 }
 
-// export async function getDailyTotalUsers(dayCount: number): Promise<MovieTotalUsers[]> {
-//     return await fetchMovie<MovieTotalUsers[]>(`/daily-total-users/${dayCount}`);
-// }
+export async function getDailyTotalUsers(dayCount: number): Promise<MovieTotalUsers[]> {
+    return await fetchMovie<MovieTotalUsers[]>(`/daily-total-users/${dayCount}`);
+}
 
-// export async function getLatestMovies(limit: number): Promise<MovieLatestMovies[]> {
-//     return await fetchMovie<MovieLatestMovies[]>(`/latest-movies/${limit}`);
-// }
+export async function getLatestMovies(limit: number): Promise<MovieLatestMovies[]> {
+    const data = await fetchMovie<MovieLatestMovies[]>(`/latest-movies/${limit}`);
+
+    data.forEach((item) => {
+        const qualities: string[] = [];
+
+        if (item.description?.includes("2160p") || item.description?.includes("4K") || item.description?.includes("UHD")) {
+            qualities.push("4K");
+        }
+        if (
+            item.description?.includes("1440p") ||
+            item.description?.includes("QHD") ||
+            item.description?.includes("2K") ||
+            item.description?.includes("QuadHD")
+        ) {
+            qualities.push("2K");
+        }
+        if (item.description?.includes("1080p") || item.description?.includes("Full HD") || item.description?.includes("FHD")) {
+            qualities.push("Full HD");
+        }
+        if (item.description?.includes("720p") || item.description?.includes("HD")) {
+            qualities.push("HD");
+        }
+        if (item.description?.includes("480p") || item.description?.includes("SD")) {
+            qualities.push("SD");
+        }
+
+        item.movie_name = item.description?.split("\n")[0];
+        item.quality = qualities;
+    });
+
+    return data;
+}

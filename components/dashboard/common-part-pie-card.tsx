@@ -7,7 +7,8 @@ import { generateColor } from "@/lib/generate-color";
 
 export type CommonPartPieCardData =
     | { name?: string; dub_name: string; count: number; color?: string }
-    | { name?: string; anime_name: string; count: number; color?: string };
+    | { name?: string; anime_name: string; count: number; color?: string }
+    | { name?: string; movie_name: string; count: number; color?: string };
 
 interface CommonPartPieCardProps {
     data: CommonPartPieCardData[];
@@ -16,7 +17,7 @@ interface CommonPartPieCardProps {
 
 export function CommonPartPieCard({ data, title }: CommonPartPieCardProps) {
     data.forEach((item) => {
-        item.name = "dub_name" in item ? item.dub_name : item.anime_name;
+        item.name = "dub_name" in item ? item.dub_name : "anime_name" in item ? item.anime_name : item.movie_name;
         item.color = generateColor(item.name);
     });
 
