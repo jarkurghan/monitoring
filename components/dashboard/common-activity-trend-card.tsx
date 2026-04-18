@@ -7,9 +7,10 @@ export type CommonActivityTrendPoint = { date: string; users: number; dateSlice?
 
 interface CommonActivityTrendCardProps {
     data: CommonActivityTrendPoint[];
+    color: string;
 }
 
-export function CommonActivityTrendCard({ data }: CommonActivityTrendCardProps) {
+export function CommonActivityTrendCard({ data, color }: CommonActivityTrendCardProps) {
     const startCount = data[0]?.users ?? 0;
     const endCount = data[data.length - 1]?.users ?? 0;
     data.forEach((item) => (item.dateSlice = item.date.slice(0, 2)));
@@ -50,8 +51,8 @@ export function CommonActivityTrendCard({ data }: CommonActivityTrendCardProps) 
                         <AreaChart data={data}>
                             <defs>
                                 <linearGradient id="orderGradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                                    <stop offset="5%" stopColor={color} stopOpacity={0.6} />
+                                    <stop offset="95%" stopColor={color} stopOpacity={0} />
                                 </linearGradient>
                             </defs>
                             <XAxis dataKey="dateSlice" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#737373" }} />
@@ -61,7 +62,7 @@ export function CommonActivityTrendCard({ data }: CommonActivityTrendCardProps) 
                                 formatter={(value: number) => [value.toLocaleString(), "Foydalanuvchilar soni"]}
                                 labelFormatter={(_, payload) => payload?.[0]?.payload?.date || ""}
                             />
-                            <Area type="monotone" dataKey="users" stroke="#a3a6f1" strokeWidth={2} fill="url(#orderGradient)" />
+                            <Area type="monotone" dataKey="users" stroke={color} strokeWidth={2} fill="url(#orderGradient)" />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>

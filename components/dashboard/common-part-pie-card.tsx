@@ -12,10 +12,11 @@ export type CommonPartPieCardData =
 
 interface CommonPartPieCardProps {
     data: CommonPartPieCardData[];
-    title: string;
+    title1: string;
+    title2: string;
 }
 
-export function CommonPartPieCard({ data, title }: CommonPartPieCardProps) {
+export function CommonPartPieCard({ data, title1, title2 }: CommonPartPieCardProps) {
     data.forEach((item) => {
         item.name = "dub_name" in item ? item.dub_name : "anime_name" in item ? item.anime_name : item.movie_name;
         item.color = generateColor(item.name);
@@ -25,8 +26,8 @@ export function CommonPartPieCard({ data, title }: CommonPartPieCardProps) {
         <Card className="bg-card border-border h-full">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div>
-                    <CardTitle className="text-base font-medium">Eng ko'p ko'rishlar</CardTitle>
-                    <p className="text-xs text-muted-foreground">qaysi {title}larga to'g'ri keladi</p>
+                    <CardTitle className="text-base font-medium">{title1}</CardTitle>
+                    <p className="text-xs text-muted-foreground">{title2}</p>
                 </div>
             </CardHeader>
             <CardContent>

@@ -39,15 +39,6 @@ export default async function DashboardPage() {
                 <div className="px-2 sm:p-0">
                     <InstaBotSummaryMetricCards data={summary} />
 
-                    <div className="grid grid-cols-1 lg:grid-cols-11 gap-4 mb-4 sm:mb-6">
-                        <div className="lg:col-span-7">
-                            <InstaWeeklyUsersGroupsChart data={newest} />
-                        </div>
-                        <div className="lg:col-span-4">
-                            <InstaTopGroupsBarChart data={topGroups} />
-                        </div>
-                    </div>
-
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-1 h-full">
                             <CommonUsersStatusPieCard data={usersByStatus} />
@@ -57,6 +48,15 @@ export default async function DashboardPage() {
                         </div>
                         <div className="h-full lg:col-span-1">
                             <InstaTopGroupsListCard data={topGroups} />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-11 gap-4 mb-4 sm:mb-6">
+                        <div className="lg:col-span-7">
+                            <InstaWeeklyUsersGroupsChart data={newest} />
+                        </div>
+                        <div className="lg:col-span-4">
+                            <InstaTopGroupsBarChart data={topGroups} />
                         </div>
                     </div>
                 </div>

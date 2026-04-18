@@ -23,7 +23,16 @@ import { getTopDubs } from "@/services/anime";
 import { ExternalLink } from "lucide-react";
 import { Bell } from "lucide-react";
 import { MovieSummaryMetricCards } from "@/components/dashboard/movie-summary-metric-cards";
-import { getDailyNewUsers, getDailyTotalUsers, getLatestMovies, getSummaryBasic, getTop5Movies, getTopMovies, getTopUsers, getUsersByStatus } from "@/services/movie";
+import {
+    getDailyNewUsers,
+    getDailyTotalUsers,
+    getLatestMovies,
+    getSummaryBasic,
+    getTop5Movies,
+    getTopMovies,
+    getTopUsers,
+    getUsersByStatus,
+} from "@/services/movie";
 import { MovieLatestMoviesTableCard } from "@/components/dashboard/movie-latest-movies-table-card";
 import { MovieTopMoviesListCard } from "@/components/dashboard/movie-top-movies-list-card";
 
@@ -52,6 +61,8 @@ export default async function DashboardPage() {
         { label: "Botga o'tish", href: "https://t.me/uz_multfilm_bot", target: "_blank", icon: <ExternalLink /> },
     ];
 
+    const color = "#55a6cc";
+
     return (
         <div className="min-h-screen bg-background p-0 sm:p-4 md:p-6 lg:p-8">
             <div className="max-w-[1400px] mx-auto">
@@ -73,7 +84,7 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-4 h-full">
-                            <CommonPartPieCard data={top5Movies} title="multfilm" />
+                            <CommonPartPieCard data={top5Movies} title1="Eng ko'p ko'rishlar" title2={"qaysi multfilmlarga to'g'ri keladi"} />
                         </div>
                         <div className="lg:col-span-3 h-full">
                             <MovieTopMoviesListCard data={topMovies} />
@@ -88,7 +99,7 @@ export default async function DashboardPage() {
                             <MovieLatestMoviesTableCard data={latestMovies} />
                         </div>
                         <div className="h-full lg:col-span-3">
-                            <CommonActivityTrendCard data={updatedUsersLast5Days} />
+                            <CommonActivityTrendCard data={updatedUsersLast5Days} color={color} />
                         </div>
                     </div>
                 </div>

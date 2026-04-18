@@ -51,10 +51,12 @@ export default async function DashboardPage() {
         { label: "Botga o'tish", href: "https://t.me/aniuz_bot", target: "_blank", icon: <ExternalLink /> },
     ];
 
+    const color = "#74b466";
+
     return (
         <div className="min-h-screen bg-background p-0 sm:p-4 md:p-6 lg:p-8">
             <div className="max-w-[1400px] mx-auto">
-                <DashboardPageTitle title="Bot statistikasi" description="Insta saver boti foydalanuvchilari bo'yicha statistika">
+                <DashboardPageTitle title="Bot statistikasi" description="Anime bot foydalanuvchilari bo'yicha statistika">
                     <MonitoringAppHeader headerMenuItems={headerMenuItems} />
                 </DashboardPageTitle>
 
@@ -63,7 +65,7 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-2 h-full">
-                            <CommonDailyRecipientsChart data={dailyNewUsers} color="#74b466" />
+                            <CommonDailyRecipientsChart data={dailyNewUsers} color={color} />
                         </div>
                         <div className="lg:col-span-1 h-full">
                             <CommonUsersStatusPieCard data={usersByStatus} />
@@ -72,10 +74,10 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Dubs} title="dub" />
+                            <CommonPartPieCard data={top5Dubs} title1="Eng ko'p ko'rishlar" title2={"qaysi dublarga to'g'ri keladi"} />
                         </div>
                         <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Animes} title="anime" />
+                            <CommonPartPieCard data={top5Animes} title1="Eng ko'p ko'rishlar" title2={"qaysi animelarga to'g'ri keladi"} />
                         </div>
                     </div>
 
@@ -84,7 +86,7 @@ export default async function DashboardPage() {
                             <AnimeLatestAnimesTableCard data={latestAnimes} />
                         </div>
                         <div className="h-full lg:col-span-3">
-                            <CommonActivityTrendCard data={updatedUsersLast5Days} />
+                            <CommonActivityTrendCard data={updatedUsersLast5Days} color={color} />
                         </div>
                     </div>
 

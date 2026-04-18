@@ -30,6 +30,8 @@ export default async function DashboardPage() {
         { label: "Botga o'tish", href: "https://t.me/bugungi_namoz_bot", target: "_blank", icon: <ExternalLink /> },
     ];
 
+    const color = "#545aa6cc";
+
     return (
         <div className="min-h-screen bg-background p-0 sm:p-4 md:p-6 lg:p-8">
             <div className="max-w-[1400px] mx-auto">
@@ -41,7 +43,7 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-2">
-                            <PrayerHourlyRecipientsChart data={activePerTimes} />
+                            <PrayerHourlyRecipientsChart data={activePerTimes} color={color} />
                         </div>
                         <div>
                             <PrayerLatestSubscribersCard data={latestUsers} />
@@ -53,7 +55,7 @@ export default async function DashboardPage() {
                             <PrayerUsersByStatusCard data={userStatus} />
                         </div>
                         <div className="h-full lg:col-span-3">
-                            <CommonActivityTrendCard data={updatedUsersLast5Days} />
+                            <CommonActivityTrendCard data={updatedUsersLast5Days} color={color} />
                         </div>
                     </div>
 

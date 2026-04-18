@@ -10,9 +10,10 @@ type PrayerTimeStat = {
 
 interface PrayerHourlyRecipientsChartProps {
     data: PrayerTimeStat[];
+    color: string;
 }
 
-export function PrayerHourlyRecipientsChart({ data }: PrayerHourlyRecipientsChartProps) {
+export function PrayerHourlyRecipientsChart({ data, color }: PrayerHourlyRecipientsChartProps) {
     const sum = data.reduce((acc, curr) => acc + curr.count, 0);
     return (
         <Card className="bg-card border-border">
@@ -26,7 +27,7 @@ export function PrayerHourlyRecipientsChart({ data }: PrayerHourlyRecipientsChar
                 <div className="flex items-center gap-6 mb-4">
                     <div className="ml-auto flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded bg-[#545aa6cc] flex items-center justify-center">
+                            <div className={`w-6 h-6 rounded bg-[${color}] flex items-center justify-center`}>
                                 <span className="text-[10px] text-orange-600 font-bold"></span>
                             </div>
                             <div>
@@ -51,7 +52,7 @@ export function PrayerHourlyRecipientsChart({ data }: PrayerHourlyRecipientsChar
                             />
                             <Bar dataKey="count" radius={[4, 4, 0, 0]} maxBarSize={20}>
                                 {data.map((entry, index) => (
-                                    <Cell key={`count-${index}`} fill="#545aa6cc" />
+                                    <Cell key={`count-${index}`} fill={color} />
                                 ))}
                             </Bar>
                         </BarChart>
