@@ -100,31 +100,9 @@ export async function getLatestMovies(limit: number): Promise<MovieLatestMovies[
     const data = await fetchMovie<MovieLatestMovies[]>(`/latest-movies/${limit}`);
 
     data.forEach((item) => {
-        const qualities: string[] = [];
-
-        if (item.description?.includes("2160p") || item.description?.includes("4K") || item.description?.includes("UHD")) {
-            qualities.push("4K");
-        }
-        if (
-            item.description?.includes("1440p") ||
-            item.description?.includes("QHD") ||
-            item.description?.includes("2K") ||
-            item.description?.includes("QuadHD")
-        ) {
-            qualities.push("2K");
-        }
-        if (item.description?.includes("1080p") || item.description?.includes("Full HD") || item.description?.includes("FHD")) {
-            qualities.push("Full HD");
-        }
-        if (item.description?.includes("720p") || item.description?.includes("HD")) {
-            qualities.push("HD");
-        }
-        if (item.description?.includes("480p") || item.description?.includes("SD")) {
-            qualities.push("SD");
-        }
-
+        const qrow = (item.description || "").split("\n").filter((line) => line.includes("Sifat:"))[0] || "";
+        item.quality = (qrow.split(":")[1] || "").split(",").map((e) => e.trim());
         item.movie_name = item.description?.split("\n")[0];
-        item.quality = qualities;
     });
 
     return data;
