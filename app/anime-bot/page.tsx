@@ -38,10 +38,8 @@ export default async function DashboardPage() {
         getDailyNewUsers(DAY_COUNT),
         getDailyTotalUsers(DAY_COUNT),
         getLatestAnimes(5),
-        getTop5Animes(),
-        getTop5Dubs(),
     ]);
-    const [summary, topDubs, topAnimes, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestAnimes, top5Animes, top5Dubs] = response;
+    const [summary, topDubs, topAnimes, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestAnimes] = response;
 
     // to-do: yana yangi statslar qo'shish mumkin:
     // 3. qaysi dublar nechtadan anime dublaj qilishgan;
@@ -74,10 +72,18 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Dubs} title1="Eng ko'p ko'rishlar" title2={"qaysi dublarga to'g'ri keladi"} />
+                            <CommonPartPieCard
+                                data={topDubs.map((item) => ({ name: item.dub_name, count: item.total_count }))}
+                                title1="Eng ko'p ko'rishlar"
+                                title2={"qaysi dublarga to'g'ri keladi"}
+                            />
                         </div>
                         <div className="lg:col-span-1 h-full">
-                            <CommonPartPieCard data={top5Animes} title1="Eng ko'p ko'rishlar" title2={"qaysi animelarga to'g'ri keladi"} />
+                            <CommonPartPieCard
+                                data={topAnimes.map((item) => ({ name: item.anime_name, count: item.total_count }))}
+                                title1="Eng ko'p ko'rishlar"
+                                title2={"qaysi animelarga to'g'ri keladi"}
+                            />
                         </div>
                     </div>
 

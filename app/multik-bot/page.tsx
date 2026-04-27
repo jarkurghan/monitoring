@@ -1,40 +1,26 @@
 import type { Metadata } from "next";
-import { AnimeTopDubsListCard } from "@/components/dashboard/j-anime-top-dubs-list-card";
 import { AnimeTopUsersListCard } from "@/components/dashboard/j-anime-top-users-list-card";
-import { AnimeTopAnimesListCard } from "@/components/dashboard/j-anime-top-animes-list-card";
+import { MovieLatestMoviesTableCard } from "@/components/dashboard/movie-latest-movies-table-card";
 import { CommonDailyRecipientsChart } from "@/components/dashboard/common-daily-recipients-chart";
-import { AnimeBotSummaryMetricCards } from "@/components/dashboard/j-anime-bot-summary-metric-cards";
 import { CommonUsersStatusPieCard } from "@/components/dashboard/common-users-status-pie-card";
 import { CommonActivityTrendCard } from "@/components/dashboard/common-activity-trend-card";
-import { AnimeLatestAnimesTableCard } from "@/components/dashboard/j-anime-latest-animes-table-card";
+import { MovieTopMoviesListCard } from "@/components/dashboard/movie-top-movies-list-card";
+import { MovieSummaryMetricCards } from "@/components/dashboard/movie-summary-metric-cards";
 import { CommonPartPieCard } from "@/components/dashboard/common-part-pie-card";
 import { MonitoringAppHeader } from "@/components/dashboard/app-header";
 import { DashboardPageTitle } from "@/components/dashboard/app-title";
-import { getTop5Animes, getTop5Dubs } from "@/services/anime";
 import { DAY_COUNT, TOP_COUNT } from "@/lib/constants";
-// import { getDailyTotalUsers } from "@/services/anime";
-// import { getDailyNewUsers } from "@/services/anime";
-// import { getUsersByStatus } from "@/services/anime";
-// import { getSummaryBasic } from "@/services/anime";
-import { getLatestAnimes } from "@/services/anime";
-import { getTopAnimes } from "@/services/anime";
-// import { getTopUsers } from "@/services/anime";
-import { getTopDubs } from "@/services/anime";
+import { getDailyNewUsers } from "@/services/movie";
+import { getDailyTotalUsers } from "@/services/movie";
+import { getUsersByStatus } from "@/services/movie";
+import { getLatestMovies } from "@/services/movie";
+import { getSummaryBasic } from "@/services/movie";
+import { getTopMovies } from "@/services/movie";
+import { getTopStudios } from "@/services/movie";
+import { getGenres } from "@/services/movie";
+import { getTopUsers } from "@/services/movie";
 import { ExternalLink } from "lucide-react";
 import { Bell } from "lucide-react";
-import { MovieSummaryMetricCards } from "@/components/dashboard/movie-summary-metric-cards";
-import {
-    getDailyNewUsers,
-    getDailyTotalUsers,
-    getLatestMovies,
-    getSummaryBasic,
-    getTop5Movies,
-    getTopMovies,
-    getTopUsers,
-    getUsersByStatus,
-} from "@/services/movie";
-import { MovieLatestMoviesTableCard } from "@/components/dashboard/movie-latest-movies-table-card";
-import { MovieTopMoviesListCard } from "@/components/dashboard/movie-top-movies-list-card";
 
 export const metadata: Metadata = {
     title: "Multfilm bot",
@@ -44,17 +30,16 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
     const response = await Promise.all([
         getSummaryBasic(),
-        getTopDubs(TOP_COUNT),
         getTopMovies(TOP_COUNT),
         getTopUsers(TOP_COUNT),
+        getTopStudios(TOP_COUNT),
+        getGenres(TOP_COUNT),
         getUsersByStatus(),
         getDailyNewUsers(DAY_COUNT),
         getDailyTotalUsers(DAY_COUNT),
         getLatestMovies(5),
-        getTop5Movies(),
-        getTop5Dubs(),
     ]);
-    const [summary, topDubs, topMovies, topUsers, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestMovies, top5Movies, top5Dubs] = response;
+    const [summary, topMovies, topUsers, topStudios, topGenres, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestMovies] = response;
 
     const headerMenuItems = [
         { label: "Bot yangiliklari", href: "https://t.me/meni_botlarim", target: "_blank", icon: <Bell /> },
@@ -84,7 +69,11 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-4 h-full">
-                            <CommonPartPieCard data={top5Movies} title1="Eng ko'p ko'rishlar" title2={"qaysi multfilmlarga to'g'ri keladi"} />
+                            <CommonPartPieCard
+                                data={topMovies.map((item) => ({ name: item.description?.split("\n")[0], count: item.total_count }))}
+                                title1="Eng ko'p ko'rishlar"
+                                title2={"qaysi multfilmlarga to'g'ri keladi"}
+                            />
                         </div>
                         <div className="lg:col-span-3 h-full">
                             <MovieTopMoviesListCard data={topMovies} />
@@ -100,6 +89,15 @@ export default async function DashboardPage() {
                         </div>
                         <div className="h-full lg:col-span-3">
                             <CommonActivityTrendCard data={updatedUsersLast5Days} color={color} />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 mb-4 sm:mb-6">
+                        <div className="lg:col-span-5 h-full">
+                            <CommonPartPieCard data={topStudios} title1="Eng ko'p ko'rishlar" title2={"qaysi studiyalarga to'g'ri keladi"} />
+                        </div>
+                        <div className="lg:col-span-5 h-full">
+                            <CommonPartPieCard data={topGenres} title1="Eng ko'p ko'rishlar" title2={"qaysi janrlarga to'g'ri keladi"} />
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ export function PrayerRegionsMap({ data }: PrayerRegionsMapProps) {
             </div>
             <div className="h-full">
                 <CommonPartPieCard
-                    data={data1.map((item) => ({ movie_name: item.name_2, count: item.count }))}
+                    data={data1.map((item) => ({ name: item.name_2, count: item.count }))}
                     title1={selectedRegion.viloyat}
                     title2={`Umumiy: ${data1.reduce((acc, item) => acc + item.count || 0, 0) || 0}`}
                 />

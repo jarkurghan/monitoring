@@ -1,5 +1,7 @@
 "use server";
 
+import { CommonPartPieCardData } from "@/components/dashboard/common-part-pie-card";
+
 export type MovieSummaryBasic = {
     total_movies: number;
     total_uses: number;
@@ -18,6 +20,16 @@ export type MovieTopUsers = {
     user_name: string;
     total_count: number;
     today_count: number;
+};
+
+export type MovieTopStudio = {
+    studio: string;
+    total_count: number;
+};
+
+export type MovieTopGenre = {
+    genre: string;
+    total_count: number;
 };
 
 export type MovieStatusCount = {
@@ -45,12 +57,14 @@ export type MovieLatestMovies = {
     quality?: string[];
 };
 
-export type MovieCommonPieCardData =
-    | { name?: string; dub_name: string; count: number; color?: string }
-    | { name?: string; movie_name: string; count: number; color?: string }
-    | { name?: string; movie_name: string; count: number; color?: string };
-
 const MOVIE_BASE = `${process.env.API_URL}/api/movie/stat`;
+
+function addSpaceBeforeCaps(value: string): string {
+    return value
+        .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
+        .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+        .trim();
+}
 
 async function fetchMovie<T>(path: string): Promise<T> {
     const res = await fetch(`${MOVIE_BASE}${path}`, { cache: "no-store" });
@@ -75,13 +89,23 @@ export async function getTopMovies(topCount: number): Promise<MovieTopMovie[]> {
     return data.map((item) => ({ ...item, movie_name: item.description?.split("\n")[0] }));
 }
 
-export async function getTop5Movies(): Promise<MovieCommonPieCardData[]> {
+export async function getTop5Movies(): Promise<CommonPartPieCardData[]> {
     const data = await fetchMovie<MovieTopMovie[]>(`/top-movies`);
-    return data.map((item) => ({ count: item.total_count, movie_name: item.description?.split("\n")[0] }));
+    return data.map((item) => ({ count: item.total_count, name: item.description?.split("\n")[0] }));
 }
 
 export async function getTopUsers(topCount: number): Promise<MovieTopUsers[]> {
     return await fetchMovie<MovieTopUsers[]>(`/top-users/${topCount}`);
+}
+
+export async function getTopStudios(topCount: number): Promise<CommonPartPieCardData[]> {
+    const data = await fetchMovie<MovieTopStudio[]>(`/top-studios/${topCount}`);
+    return data.map((item) => ({ name: addSpaceBeforeCaps(item.studio.slice(1)), count: item.total_count }));
+}
+
+export async function getGenres(topCount: number): Promise<CommonPartPieCardData[]> {
+    const data = await fetchMovie<MovieTopGenre[]>(`/top-genres/${topCount}`);
+    return data.map((item) => ({ name: item.genre, count: item.total_count }));
 }
 
 export async function getUsersByStatus(): Promise<MovieStatusCount[]> {
