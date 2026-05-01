@@ -34,7 +34,7 @@ const getViloyatCoordinates = (viloyat: string) => {
         case "Surxondaryo":
             return { x: 364, y: 331 };
         case "Navoiy":
-            return { x: 241, y: 126 };
+            return { x: 272, y: 194 };
         case "Xorazm":
             return { x: 175, y: 168 };
         case "Qoraqalpog‘iston":
