@@ -2,17 +2,21 @@ import type { Metadata } from "next";
 import { AnimeTopUsersListCard } from "@/components/dashboard/j-anime-top-users-list-card";
 import { MovieLatestMoviesTableCard } from "@/components/dashboard/movie-latest-movies-table-card";
 import { CommonDailyRecipientsChart } from "@/components/dashboard/common-daily-recipients-chart";
+import { MovieDailyRecipientsChart } from "@/components/dashboard/movie-daily-recipients-chart";
 import { CommonUsersStatusPieCard } from "@/components/dashboard/common-users-status-pie-card";
 import { CommonActivityTrendCard } from "@/components/dashboard/common-activity-trend-card";
 import { MovieTopMoviesListCard } from "@/components/dashboard/movie-top-movies-list-card";
 import { MovieSummaryMetricCards } from "@/components/dashboard/movie-summary-metric-cards";
+import { MovieDailyNewMoviesCard } from "@/components/dashboard/movie-daily-new-movies";
 import { CommonPartPieCard } from "@/components/dashboard/common-part-pie-card";
 import { MonitoringAppHeader } from "@/components/dashboard/app-header";
 import { DashboardPageTitle } from "@/components/dashboard/app-title";
 import { DAY_COUNT, TOP_COUNT } from "@/lib/constants";
-import { getDailyNewUsers } from "@/services/movie";
 import { getDailyTotalUsers } from "@/services/movie";
+import { getDailyNewMovies } from "@/services/movie";
+import { getTopTodayMovies } from "@/services/movie";
 import { getUsersByStatus } from "@/services/movie";
+import { getDailyNewUsers } from "@/services/movie";
 import { getLatestMovies } from "@/services/movie";
 import { getSummaryBasic } from "@/services/movie";
 import { getTopMovies } from "@/services/movie";
@@ -38,8 +42,22 @@ export default async function DashboardPage() {
         getDailyNewUsers(DAY_COUNT),
         getDailyTotalUsers(DAY_COUNT),
         getLatestMovies(5),
+        getTopTodayMovies(TOP_COUNT),
+        getDailyNewMovies(DAY_COUNT),
     ]);
-    const [summary, topMovies, topUsers, topStudios, topGenres, usersByStatus, dailyNewUsers, updatedUsersLast5Days, latestMovies] = response;
+    const [
+        summary,
+        topMovies,
+        topUsers,
+        topStudios,
+        topGenres,
+        usersByStatus,
+        dailyNewUsers,
+        updatedUsersLast5Days,
+        latestMovies,
+        topTodayMovies,
+        dailyNewMovies,
+    ] = response;
 
     const headerMenuItems = [
         { label: "Bot yangiliklari", href: "https://t.me/meni_botlarim", target: "_blank", icon: <Bell /> },
@@ -60,7 +78,7 @@ export default async function DashboardPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
                         <div className="lg:col-span-2 h-full">
-                            <CommonDailyRecipientsChart data={dailyNewUsers} color="#55a6cc" />
+                            <CommonDailyRecipientsChart data={dailyNewUsers} color={color} />
                         </div>
                         <div className="lg:col-span-1 h-full">
                             <CommonUsersStatusPieCard data={usersByStatus} />
@@ -98,6 +116,15 @@ export default async function DashboardPage() {
                         </div>
                         <div className="lg:col-span-5 h-full">
                             <CommonPartPieCard data={topGenres} title1="Eng ko'p ko'rishlar" title2={"qaysi janrlarga to'g'ri keladi"} />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 sm:mb-6">
+                        <div className="lg:col-span-1 h-full">
+                            <MovieDailyNewMoviesCard data={topTodayMovies} />
+                        </div>
+                        <div className="lg:col-span-2 h-full">
+                            <MovieDailyRecipientsChart data={dailyNewMovies} color={color} />
                         </div>
                     </div>
                 </div>

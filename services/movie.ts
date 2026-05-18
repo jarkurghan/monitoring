@@ -44,6 +44,12 @@ export type MovieDailyNewUsers = {
     dateSlice?: string;
 };
 
+export type MovieDailyNewMovies = {
+    date: string;
+    movies: number;
+    dateSlice?: string;
+};
+
 export type MovieTotalUsers = {
     date: string;
     users: number;
@@ -89,6 +95,11 @@ export async function getTopMovies(topCount: number): Promise<MovieTopMovie[]> {
     return data.map((item) => ({ ...item, movie_name: item.description?.split("\n")[0] }));
 }
 
+export async function getTopTodayMovies(topCount: number): Promise<MovieTopMovie[]> {
+    const data = await fetchMovie<MovieTopMovie[]>(`/top-today-movies/${topCount}`);
+    return data.map((item) => ({ ...item, movie_name: item.description?.split("\n")[0] }));
+}
+
 export async function getTop5Movies(): Promise<CommonPartPieCardData[]> {
     const data = await fetchMovie<MovieTopMovie[]>(`/top-movies`);
     return data.map((item) => ({ count: item.total_count, name: item.description?.split("\n")[0] }));
@@ -114,6 +125,10 @@ export async function getUsersByStatus(): Promise<MovieStatusCount[]> {
 
 export async function getDailyNewUsers(dayCount: number): Promise<MovieDailyNewUsers[]> {
     return await fetchMovie<MovieDailyNewUsers[]>(`/daily-new-users/${dayCount}`);
+}
+
+export async function getDailyNewMovies(dayCount: number): Promise<MovieDailyNewMovies[]> {
+    return await fetchMovie<MovieDailyNewMovies[]>(`/daily-new-movies/${dayCount}`);
 }
 
 export async function getDailyTotalUsers(dayCount: number): Promise<MovieTotalUsers[]> {
